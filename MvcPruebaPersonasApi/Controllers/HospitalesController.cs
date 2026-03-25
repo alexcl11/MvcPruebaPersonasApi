@@ -1,0 +1,34 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using MvcPruebaPersonasApi.Models;
+using MvcPruebaPersonasApi.Services;
+
+namespace MvcPruebaPersonasApi.Controllers
+{
+    public class HospitalesController : Controller
+    {
+        private ServiceHospitales service;
+        public HospitalesController(ServiceHospitales service)
+        {
+            this.service = service;
+        }
+
+        public async Task<IActionResult> Servidor()
+        {
+            List<Hospital> hospitales = await this.service.GetHospitalesAsync();
+            return View(hospitales);
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Cliente()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Details(int id)
+        {
+            Hospital hospital = await this.service.FindHospitalAsync(id);
+            return View(hospital);
+        }
+    }
+}

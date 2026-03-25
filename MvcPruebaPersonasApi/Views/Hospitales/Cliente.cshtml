@@ -1,0 +1,46 @@
+﻿<h1>Api Hospitales Cliente</h1>
+
+@section Scripts {
+    <script>
+        $(document).ready(function(){
+            $("#botonHospitales").click(function(){
+                let url = "https://apicorehospitalesacl.azurewebsites.net/";
+                let request = "api/hospitales";
+                $.ajax({
+                    url: url+request,
+                    method: "GET",
+                    success: function(data){
+                        console.log("Cargando...");
+                        var html = "";
+                        $.each(data, function(index, hospital){
+                            html += "<tr>"
+                            html += "<td>"+ hospital.idHospital +"</td>"
+                            html += "<td>"+ hospital.nombre +"</td>"
+                            html += "<td>"+ hospital.direccion +"</td>"
+                            html += "<td>"+ hospital.telefono +"</td>"
+                            html += "<td>"+ hospital.camas +"</td>"
+                            html += "</tr>"
+                        })
+                        $("#tablaHospitales tbody").html(html);
+                    }
+                })
+            })
+        })
+    </script>
+}
+
+<button class="btn btn-primary" id="botonHospitales">
+    Cargar Hospitales
+</button>
+<table id="tablaHospitales" class="table table-bordered">
+    <thead>
+        <th>ID Hospital</th>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th>Teléfono</th>
+        <th>Camas</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
